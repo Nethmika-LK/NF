@@ -24,7 +24,7 @@ cmd({
   
       // Step 1: Search movies from CineSubz API
       const searchResponse = await fetchJson(
-        `https://cinesubz-api-zazie.vercel.app/api/search?q=${encodeURIComponent(q)}`
+        `https://deneth-dev-api-links.vercel.app/api/cinesubz-search?q=${encodeURIComponent(q)}&api_key=deneth2009`
       );
       const searchData = searchResponse;
   
@@ -33,10 +33,10 @@ cmd({
       }
   
       const searchResults = searchData.result.data;
-      let resultsMessage = `❤️‍🩹 *KAVI EXE CINESUBZ DOWNLOADER* ✨\n\n🎥 *Search Results for* "${q}":\n\n`;
+      let resultsMessage = `*Cinesubz serch* ✨"${q}":\n\n`;
   
       searchResults.forEach((result, index) => {
-        resultsMessage += `*${index + 1}.* ${result.title} (${result.year})\n🔗 Link: ${result.link}\n\n`;
+        resultsMessage += `*${index + 1}.* ${result.title} (${result.year})\nLink: ${result.link}\n\n`;
       });
   
       const sentMsg = await conn.sendMessage(
@@ -70,9 +70,9 @@ cmd({
   
             // Step 3: Fetch download links for the selected movie
             const movieResponse = await fetchJson(
-              `https://cinesubz-api-zazie.vercel.app/api/movie?url=${encodeURIComponent(
+              `https://deneth-dev-api-links.vercel.app/api/cinesubz-movie?url=${encodeURIComponent(
                 selectedMovie.link
-              )}`
+              )}&api_key=deneth2009`
             );
             const movieData = movieResponse;
   
@@ -90,7 +90,7 @@ cmd({
             }
   
             let downloadMessage = `🎥 *${title}*\n\n`;
-            downloadMessage += `⭐ *Rating:* ${imdbRate}\n📅 *Release Date:* ${date}\n🌍 *Country:* ${country}\n⏳ *Duration:* ${duration}\n⚠TELEGRAM LINKS NOT ALLOWED..\n\n`;
+            downloadMessage += `⭐ *Rating:* ${imdbRate}\n📅 *Release Date:* ${date}\n🌍 *Country:* ${country}\n⏳ *Duration:* ${duration}\n`;
             downloadMessage += `*Available Download Links:*\n`;
   
             dl_links.forEach((link, index) => {
@@ -102,26 +102,6 @@ cmd({
               {
                 image: { url: image },
                 caption: downloadMessage,
-                contextInfo: {
-                  mentionedJid: ['94760383959@s.whatsapp.net'], // specify mentioned JID(s) if any
-                  groupMentions: [],
-                  forwardingScore: 999,
-                  isForwarded: true,
-                  forwardedNewsletterMessageInfo: {
-                      newsletterJid: '120363366147331561@newsletter',
-                      newsletterName: "KAVI EXE",
-                      serverMessageId: 999
-                  },
-                  externalAdReply: {
-                      title: 'ᴀ ᴍᴜʟᴛɪ ᴅᴇᴠɪᴄᴇ ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ ®',
-                      body: '® ᴋꜱᴠɪ ᴇxᴇ ᴠ1 💀',
-                      mediaType: 1,
-                      sourceUrl: "",
-                      thumbnailUrl: 'https://telegra.ph/file/7dfa3d970754fecb3bedf-dc19a72085304a0097.jpg', // This should match the image URL provided above
-                      renderLargerThumbnail: false,
-                      showAdAttribution: false
-                  }
-              }
               },
               { quoted: replyMek }
             );
@@ -151,9 +131,9 @@ cmd({
                 ) {
                   const selectedLink = download[selectedQuality - 1];
                   const movieLinkResponse = await fetchJson(
-                    `https://cinesubz-api-zazie.vercel.app/api/links?url=${encodeURIComponent(
+                    `https://apicine-api.vercel.app/api/cinesubz/download?url=${encodeURIComponent(
                       selectedLink.link
-                    )}`
+                    )}&apikey=test`
                   );
                   const movieLinkData = movieLinkResponse;
   
@@ -167,30 +147,9 @@ cmd({
                       document: { url: downloadUrl },
                       mimetype: "video/mp4",
                       fileName: `${title} - ${selectedLink.quality}.mp4`,
-                      caption: `|  𝗞𝗔𝗩𝗜 𝗘𝗫𝗘✓ \n\n® ᴋᴀᴠɪ ᴇxᴇ ᴄɴʙ ᴍᴏᴠɪᴇ ᴅʟ🎬`,
-                      contextInfo: {
-                        mentionedJid: ['94760383959@s.whatsapp.net'], // specify mentioned JID(s) if any
-                        groupMentions: [],
-                        forwardingScore: 999,
-                        isForwarded: true,
-                        forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363366147331561@newsletter',
-                            newsletterName: "𝗞𝗔𝗩𝗜 𝗘𝗫𝗘💀",
-                            serverMessageId: 999
-                        },
-                        externalAdReply: {
-                            title: 'ᴀ ᴍᴜʟᴛɪ ᴅᴇᴠɪᴄᴇ ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ ®',
-                            body: '® ᴋᴀᴠɪ ᴇxᴇ ᴠ1💀',
-                            mediaType: 1,
-                            sourceUrl: "",
-                            thumbnailUrl: 'https://telegra.ph/file/7dfa3d970754fecb3bedf-dc19a72085304a0097.jpg', // This should match the image URL provided above
-                            renderLargerThumbnail: false,
-                            showAdAttribution: false
-                        }
-                    }
+                      caption: `🥺`,
                     },
                     { quoted: downloadReply }
-                  );
 
                   await conn.sendMessage(from, { react: { text: '✅', key: mek.key } });
                 } else {
